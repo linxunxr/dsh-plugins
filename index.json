@@ -11,25 +11,85 @@
   "metadata": {
     "categories": {
       "ui": {
-        "title": { "zh": "界面增强", "en": "UI" }
+        "title": {
+          "zh": "界面增强",
+          "en": "UI"
+        }
       },
       "workflow": {
-        "title": { "zh": "工作流", "en": "Workflow" }
+        "title": {
+          "zh": "工作流",
+          "en": "Workflow"
+        }
       }
     },
     "labels": {
       "client": {
-        "title": { "zh": "客户端", "en": "Client" }
+        "title": {
+          "zh": "客户端",
+          "en": "Client"
+        }
       },
       "experimental": {
-        "title": { "zh": "实验性", "en": "Experimental" }
+        "title": {
+          "zh": "实验性",
+          "en": "Experimental"
+        }
       }
     },
     "sortKeys": {
       "release": {
-        "title": { "zh": "发布时间", "en": "Release date" }
+        "title": {
+          "zh": "发布时间",
+          "en": "Release date"
+        },
+        "order": "desc"
       }
     }
   },
-  "plugins": []
+  "plugins": [
+    {
+      "name": "dsh-todo-corner",
+      "title": {
+        "zh": "右上角任务胶囊",
+        "en": "Todo corner pill"
+      },
+      "description": {
+        "zh": "在会话标题栏右上角显示任务进度胶囊（x/y），点击展开当前任务清单，含完成/进行中/待办状态点。",
+        "en": "Session-header todo pill: progress counts (x/y) with an expandable current task list and status dots."
+      },
+      "author": "linxun",
+      "repository": {
+        "url": "https://github.com/PLACEHOLDER/dsh-plugins",
+        "directory": "plugins/dsh-todo-corner"
+      },
+      "metadata": {
+        "category": "ui",
+        "keywords": [
+          "dsh"
+        ],
+        "labels": [
+          "client"
+        ],
+        "sortKeys": {
+          "release": 1
+        }
+      },
+      "versions": [
+        {
+          "version": "0.1.0",
+          "publishTimestamp": 1794376696,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/PLACEHOLDER/dsh-plugins",
+            "commit": "40917534c86ee14c8e1a9a64c4ca497f46dcc391",
+            "path": "plugins/dsh-todo-corner"
+          },
+          "engines": {
+            "dsh": ">=0.2.2-rc.1 <0.3.0"
+          }
+        }
+      ]
+    }
+  ]
 }
