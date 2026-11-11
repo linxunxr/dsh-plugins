@@ -78,11 +78,11 @@
       "versions": [
         {
           "version": "0.1.0",
-          "publishTimestamp": 1794376696,
+          "publishTimestamp": 1794377565,
           "source": {
             "type": "git",
             "url": "https://github.com/linxunxr/dsh-plugins",
-            "commit": "40917534c86ee14c8e1a9a64c4ca497f46dcc391",
+            "commit": "594027a77eaeceaf93c029b14f461c6378f2835d",
             "path": "plugins/dsh-todo-corner"
           },
           "engines": {
