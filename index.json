@@ -60,7 +60,7 @@
       },
       "author": "linxun",
       "repository": {
-        "url": "https://github.com/PLACEHOLDER/dsh-plugins",
+        "url": "https://github.com/linxunxr/dsh-plugins",
         "directory": "plugins/dsh-todo-corner"
       },
       "metadata": {
@@ -81,7 +81,7 @@
           "publishTimestamp": 1794376696,
           "source": {
             "type": "git",
-            "url": "https://github.com/PLACEHOLDER/dsh-plugins",
+            "url": "https://github.com/linxunxr/dsh-plugins",
             "commit": "40917534c86ee14c8e1a9a64c4ca497f46dcc391",
             "path": "plugins/dsh-todo-corner"
           },
