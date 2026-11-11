@@ -1,0 +1,7 @@
+# 客户端插件行：注册到浏览器 UI（右上角 todo 胶囊）。
+# 注意：id 就是 settings 命名空间推导键（同 qq-mode 的教训），这里没有
+# 可写配置，id 只需全局唯一；name 是包名。
+- insert:
+    - id: todo-corner
+      name: dsh-todo-corner
+      config: {}

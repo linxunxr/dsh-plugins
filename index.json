@@ -1,0 +1,35 @@
+{
+  "format": 1,
+  "title": {
+    "zh": "linxun 的 DSH 插件",
+    "en": "linxun's DSH plugins"
+  },
+  "description": {
+    "zh": "个人自用的 DeepSeek Harness 插件：界面增强与工作流辅助。",
+    "en": "Personal DeepSeek Harness plugins: UI enhancements and workflow helpers."
+  },
+  "metadata": {
+    "categories": {
+      "ui": {
+        "title": { "zh": "界面增强", "en": "UI" }
+      },
+      "workflow": {
+        "title": { "zh": "工作流", "en": "Workflow" }
+      }
+    },
+    "labels": {
+      "client": {
+        "title": { "zh": "客户端", "en": "Client" }
+      },
+      "experimental": {
+        "title": { "zh": "实验性", "en": "Experimental" }
+      }
+    },
+    "sortKeys": {
+      "release": {
+        "title": { "zh": "发布时间", "en": "Release date" }
+      }
+    }
+  },
+  "plugins": []
+}

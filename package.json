@@ -1,0 +1,12 @@
+{
+  "name": "dsh-plugins",
+  "private": true,
+  "version": "0.0.1",
+  "description": "Personal DeepSeek Harness plugin marketplace: plugin sources + format-1 market index",
+  "type": "module",
+  "scripts": {
+    "publish": "node scripts/publish.mjs",
+    "validate-index": "node scripts/publish.mjs --validate-only"
+  },
+  "license": "MIT"
+}
