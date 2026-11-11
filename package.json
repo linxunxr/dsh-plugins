@@ -5,6 +5,7 @@
   "description": "Personal DeepSeek Harness plugin marketplace: plugin sources + format-1 market index",
   "type": "module",
   "scripts": {
+    "release": "node scripts/release.mjs",
     "publish": "node scripts/publish.mjs",
     "validate-index": "node scripts/publish.mjs --validate-only"
   },
