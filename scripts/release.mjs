@@ -21,7 +21,7 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
-import { execFileSync, spawnSync } from 'node:child_process';
+import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -68,6 +68,51 @@ const version = pkg.version;
 
 const onNpmAlready = tryRun('npm', ['view', `${pluginName}@${version}`, 'version'], { cwd: pluginDir });
 if (onNpmAlready === version) fail(`${pluginName}@${version} already on npm; bump version first`);
+
+// --- 2.5 token 预检：提前发现「未勾选 Bypass 2FA」这一最常见配置错误 ----------
+function findNpmToken() {
+  if (process.env.NPM_CONFIG__AUTH_TOKEN) return process.env.NPM_CONFIG__AUTH_TOKEN;
+  const candidates = [];
+  for (let dir = pluginDir; ; dir = path.dirname(dir)) {
+    candidates.push(path.join(dir, '.npmrc'));
+    if (path.dirname(dir) === dir) break;
+  }
+  candidates.push(path.join(process.env.HOME ?? process.env.USERPROFILE ?? '', '.npmrc'));
+  for (const file of candidates) {
+    if (!fs.existsSync(file)) continue;
+    const m = /^\/\/registry\.npmjs\.org\/:_authToken=(\S+)/mu.exec(fs.readFileSync(file, 'utf8'));
+    if (m) return m[1];
+  }
+  return null;
+}
+
+const token = findNpmToken();
+if (token !== null) {
+  try {
+    const res = await fetch('https://registry.npmjs.org/-/npm/v1/tokens', {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    if (res.ok) {
+      const masked = `${token.slice(0, 8)}...${token.slice(-4)}`;
+      const list = (await res.json()).objects ?? [];
+      const self = list.find((t) => t.token === masked);
+      if (self !== undefined && self.bypass_2fa !== true) {
+        fail([
+          `当前 npm token（name "${self.name}"）bypass_2fa=false，npm 会拒绝非交互发布（403）。`,
+          '→ npmjs.com → 头像 → Access Tokens → Generate New Token（Granular）：',
+          '    1. 勾选 "Allow this token to bypass two-factor authentication"（关键）',
+          '    2. Packages and scopes → Read and write（首次发布选 All packages）',
+          '  然后执行：npm config set //registry.npmjs.org/:_authToken=<新token>',
+          '  注意新 token 字符串必须与旧值不同（旧的：' + masked + '）。',
+        ].join('\n'));
+      }
+      console.log(`✓ token 预检通过（${self?.name ?? masked}, bypass_2fa=true）`);
+    }
+  } catch {
+    /* 预检网络/权限失败不阻塞，交给 npm publish 自行报错 */
+  }
+}
+
 
 // --- 3. npm publish（实时输出） --------------------------------------------
 console.log(`→ npm publish ${pluginName}@${version}`);
