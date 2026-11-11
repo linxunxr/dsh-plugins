@@ -1,4 +1,4 @@
-﻿{
+{
     "name":  "dsh-todo-corner",
     "version":  "0.1.0",
     "description":  "Session todo pill in the conversation header top-right corner: progress counts with hover-expanded task list",

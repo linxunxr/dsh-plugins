@@ -42,6 +42,8 @@ const git = (...args) => {
     fail(`git ${args.join(' ')} failed: ${String(error.message).split('\n')[0]}`);
   }
 };
+/** Read JSON tolerating a UTF-8 BOM (Windows PowerShell writes one). */
+const readJson = (file) => JSON.parse(fs.readFileSync(file, 'utf8').replace(/^\uFEFF/u, ''));
 
 // ---------------------------------------------------------------------------
 // 内嵌 format-1 校验（与 @deepseek-ai/dsh-plugin-market-index 相同的规则集，
@@ -129,7 +131,7 @@ function validateIndex(doc, indexUrl) {
 const DEFAULT_ENGINES = '>=0.2.2-rc.1 <0.3.0';
 
 const indexUrl = repoOverride ?? git('remote', 'get-url', 'origin').replace(/\.git$/u, '').replace(/^git@github\.com:/u, 'https://github.com/');
-const index = JSON.parse(fs.readFileSync(indexPath, 'utf8'));
+const index = readJson(indexPath);
 
 if (validateOnly) {
   validateIndex(index, indexUrl);
@@ -142,7 +144,7 @@ if (!pluginName) fail('usage: node scripts/publish.mjs <pluginName> [--validate-
 // 插件目录与版本
 const pluginDir = path.join(repoRoot, 'plugins', pluginName);
 if (!fs.existsSync(path.join(pluginDir, 'package.json'))) fail(`plugins/${pluginName}/package.json not found`);
-const pkg = JSON.parse(fs.readFileSync(path.join(pluginDir, 'package.json'), 'utf8'));
+const pkg = readJson(path.join(pluginDir, 'package.json'));
 if (pkg.name !== pluginName) fail(`package.json name is ${pkg.name}, expected ${pluginName}`);
 if (!SEMVER.test(pkg.version ?? '')) fail(`plugin version ${pkg.version} is not exact SemVer`);
 
