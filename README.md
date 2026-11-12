@@ -28,6 +28,21 @@ node scripts/publish.mjs dsh-todo-corner
 git add index.json && git commit -m "index: dsh-todo-corner@0.1.0" && git push
 ```
 
+## 一键发版（npm + 索引 + 推送 + 验证）
+
+```powershell
+# 前提：改 version → 提交 → push（脚本会校验工作区干净、HEAD 已推送）
+npm run release dsh-todo-corner
+```
+
+自动完成：npm token 预检（bypass_2fa）→ `npm publish` → 登记 `index.json`
+（索引已有该版本则跳过，git 源与 npm 源共存）→ 提交推送 → 验证 npm 与
+raw 索引都能看到新版本。之后在 DSH 插件弹窗直接输包名即可安装。
+
+npm token 要求：非交互发布必须用勾选了 **Bypass 2FA** 的 Granular token
+（或 Classic → Automation 类型）。token 只放 `~\.npmrc`，不要进仓库
+（`.gitignore` 已忽略 `tokens.*` / `.env`）。
+
 索引 URL 用 GitHub raw 地址，例如：
 `https://raw.githubusercontent.com/<user>/dsh-plugins/main/index.json`
 

@@ -119,9 +119,16 @@ console.log(`→ npm publish ${pluginName}@${version}`);
 const pub = spawnSync('npm', ['publish'], { cwd: pluginDir, stdio: 'inherit' });
 if (pub.status !== 0) fail('npm publish failed (index untouched)');
 
-// --- 4. 登记索引 -----------------------------------------------------------
-console.log('→ register in index.json');
-run(process.execPath, [path.join(repoRoot, 'scripts', 'publish.mjs'), pluginName]);
+// --- 4. 登记索引（版本已在索引中则跳过——git 源与 npm 源可共存同一版本号） ----
+const indexPath = path.join(repoRoot, 'index.json');
+const index = JSON.parse(fs.readFileSync(indexPath, 'utf8').replace(/^\uFEFF/u, ''));
+const indexed = index.plugins.find((p) => p.name === pluginName)?.versions.some((v) => v.version === version);
+if (indexed) {
+  console.log(`→ index already lists ${version} (git source); skip registration`);
+} else {
+  console.log('→ register in index.json');
+  run(process.execPath, [path.join(repoRoot, 'scripts', 'publish.mjs'), pluginName]);
+}
 
 // --- 5. 提交并推送索引 -----------------------------------------------------
 console.log('→ commit and push index');
