@@ -90,6 +90,48 @@
           }
         }
       ]
+    },
+    {
+      "name": "@linxunxr/dsh-auto-archive",
+      "title": {
+        "zh": "不活跃会话自动归档",
+        "en": "Auto-archive idle sessions"
+      },
+      "description": {
+        "zh": "定期扫描并归档超过设定天数没有任何事件的会话。置顶与已归档会话自动豁免；仍有运行中工作的会话默认不会被强制停止。",
+        "en": "Periodically archives sessions whose last event is older than a configured number of days. Pinned and already-archived sessions are skipped; sessions with running work are never force-stopped unless enabled."
+      },
+      "author": "linxun",
+      "repository": {
+        "url": "https://github.com/linxunxr/dsh-plugins",
+        "directory": "plugins/dsh-auto-archive"
+      },
+      "metadata": {
+        "category": "workflow",
+        "keywords": [
+          "dsh",
+          "archive",
+          "cleanup"
+        ],
+        "labels": [
+          "client"
+        ],
+        "sortKeys": {
+          "release": 2
+        }
+      },
+      "versions": [
+        {
+          "version": "0.1.1",
+          "publishTimestamp": 1794815147,
+          "source": {
+            "type": "npm"
+          },
+          "engines": {
+            "dsh": ">=0.2.2-rc.1 <0.3.0"
+          }
+        }
+      ]
     }
   ]
 }

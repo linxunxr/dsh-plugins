@@ -9,5 +9,8 @@
     "publish": "node scripts/publish.mjs",
     "validate-index": "node scripts/publish.mjs --validate-only"
   },
+  "devDependencies": {
+    "@deepseek-ai/schemastery": "^3.18.5"
+  },
   "license": "MIT"
 }

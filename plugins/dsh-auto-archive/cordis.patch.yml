@@ -1,0 +1,22 @@
+# Host 插件行：定时扫描不活跃会话并归档。
+# id 同时是设置命名空间键，保持全局唯一。
+- insert:
+    - id: auto-archive
+      name: '@linxunxr/dsh-auto-archive'
+      config:
+        # 不活跃判定阈值（天）：会话最后一个事件距今超过该天数才归档。
+        idleDays: 7
+        # 扫描间隔（小时）。
+        intervalHours: 6
+        # 首次扫描前的延迟（分钟），避开启动高峰。
+        startupDelayMinutes: 5
+        # 每轮最多归档的会话数（0 = 不限）。
+        maxPerRun: 20
+        # 归档时若仍有运行中的工作是否强制停止（stopActivity）。
+        stopActivity: false
+        # 置顶会话是否豁免（建议 true）。
+        excludePinned: true
+        # 空白会话（无任何事件）是否按创建时间判定。
+        countBlankByCreation: true
+        # 只输出日志不实际归档（试运行开关）。
+        dryRun: false
