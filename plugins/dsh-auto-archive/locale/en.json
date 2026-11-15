@@ -1,7 +1,0 @@
-{
-  "meta": {
-    "title": "Auto-archive idle sessions",
-    "description": "Periodically archives sessions whose last event is older than a configured number of days. Pinned and already-archived sessions are skipped, and sessions with running work are never force-stopped unless enabled.",
-    "detail": "docs/DETAIL.md"
-  }
-}
